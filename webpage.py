@@ -1,24 +1,25 @@
 import streamlit as st
-import functions as fn
-
-
-todos = fn.get_todos()
-
-
+import functions
+ 
+todos = functions.get_todos()
+ 
 def add_todo():
-    todo = st.session_state['new_todo']
+    todo = st.session_state["new_todo"] + "\n"
     todos.append(todo)
-    fn.write_todos(todos)
+    functions.write_todos(todos)
+ 
+st.title("My todo App")
+st.subheader("This is my todo app.")
+st.write("This app is to increase your productivity")
+ 
+# Use a for loop with enumerate to add unique keys to the checkboxes
+for i, todo in enumerate(todos):
+    st.checkbox(todo, key=f"checkbox_{i}")
+ 
+st.text_input(label="", placeholder="Add new todo...",
+              on_change=add_todo, key='new_todo')
+ 
 
-    
-st.title ('My To Do App')
-st.subheader ('This is my To Do App')
-st.write ('This App is to increase my productivity.')
+print('Hello')
 
-
-# Display the todos list with checkboxes
-for idx, todo in enumerate(todos):
-    st.checkbox(todo, key=f"checkbox_{idx}")
-
-
-st.text_input(label='', placeholder='Type your new todo here...', on_change=add_todo)
+st.session_state
